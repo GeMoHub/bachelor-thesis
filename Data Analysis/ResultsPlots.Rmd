@@ -1,0 +1,851 @@
+---
+title: "Results and Plotting"
+output: html_resplot
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```{r}
+# Data Read ---------------------------------------------------------------
+
+blindResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\baselineLimited.csv")
+LMResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\landmarkResults.csv")
+hFFResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\hffResults.csv")
+eucResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianResults.csv")
+eucLMResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianlandmarkResults.csv")
+eucUneqResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianunequalaxis_v1Results.csv")
+eucUneqResults_new = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianunequalaxis_v2Results.csv")
+eucUneqResults_final = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianunequalaxisResults.csv")
+eucScaledLMResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianscaledLMResults.csv")
+eucLMUneqResults_old = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianlandmarkuneq_v1Results.csv")
+eucLMUneqResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianlandmarkuneq_v2Results.csv")
+eucScaledPresResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianscaledPresenceResults.csv")
+eucLMScaledLMResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianlandmarkscaledbylandmarkResults.csv")
+eucUneqUnawareResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianunequalaxis_unawareResults.csv")
+eucLMUneqUnawareResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianlandmarkunequnawareResults.csv")
+eucScaledLMUnawareResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianscaledLMUnawareResults.csv")
+eucScaledPresUnawareResults = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianscaledPresenceUnawareResults.csv")
+
+#i dont get it
+eucScaledPresUnawareResults2 = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\euclidianscaledPresenceUnawareResults_2.csv")
+
+LMResults2 = read.csv("C:\\Users\\GeMo\\Documents\\pyperplan-main\\results\\landmarkResults2.csv")
+
+```
+
+```{r}
+# Expanded Nodes ----------------------------------------------------------------
+plot(x=eucUneqResults$expandedNodes, y=eucScaledLMUnawareResults$expandedNodes, log="xy", main="eN", xlab="euc-sLM", ylab="euc-sLM-una", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time ----------------------------------------------------------------
+plot(x=eucUneqResults$searchTime, y=eucUneqUnawareResults$searchTime, log="xy", main="sT", xlab="euc-sLM", ylab="euc-sLM-una", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes ----------------------------------------------------------------
+plot(x=eucScaledPresResults$expandedNodes, y=eucScaledPresUnawareResults2$expandedNodes, log="xy", main="eN", xlab="euc-sP", ylab="euc-sP-una", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time ----------------------------------------------------------------
+plot(x=eucScaledPresResults$searchTime, y=eucScaledPresUnawareResults2$searchTime, log="xy", main="sT", xlab="euc-sP", ylab="euc-sP-una", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Blind vs. Euclidian ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\blind_euc_eN.eps")
+plot(x=blindResults$expandedNodes, y=eucResults$expandedNodes, log="xy", xlab="blind", ylab="euclidean", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time Blind vs. Euclidian ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\blind_euc_sT.eps")
+plot(x=blindResults$searchTime, y=eucResults$searchTime, log="xy", xlab="blind", ylab="euclidean", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianLM ----------------------------------------------------------------
+plot(x=eucResults$expandedNodes, y=eucLMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidian Heuristic/EuclidianLM Heuristic", xlab="euclidian", ylab="euclidianLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time Euclidian vs. EuclidianLM ----------------------------------------------------------------
+plot(x=eucResults$searchTime, y=eucLMResults$searchTime, log="xy", main="Comparison search Time\nEuclidian Heuristic/EuclidianLM Heuristic", xlab="euclidian", ylab="euclidianLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes hFF vs. Euclidian ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_euc_eN.eps")
+plot(x=hFFResults$expandedNodes, y=eucResults$expandedNodes, log="xy", xlab="hFF", ylab="euclidean", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time hFF vs. Euclidian ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_euc_sT.eps")
+plot(x=hFFResults$searchTime, y=eucResults$searchTime, log="xy", xlab="hFF", ylab="euclidean", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes hFF vs. EuclidianLM ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucLM_eN.eps")
+plot(x=hFFResults$expandedNodes, y=eucLMResults$expandedNodes, log="xy", xlab="hFF", ylab="euclidianLM", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time hFF vs. Euclidian ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucLM_sT.eps")
+plot(x=hFFResults$searchTime, y=eucLMResults$searchTime, log="xy", xlab="hFF", ylab="euclidianLM", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianUneq ----------------------------------------------------------------
+plot(x=eucResults$expandedNodes, y=eucUneqResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidian Heuristic/EuclidianUnequalAxis Heuristic", xlab="euclidian", ylab="euclidianuneq", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time Euclidian vs. EuclidianUneq ----------------------------------------------------------------
+plot(x=eucResults$searchTime, y=eucUneqResults$searchTime, log="xy", main="Comparison search Time\nEuclidian Heuristic/EuclidianUnequalAxis Heuristic", xlab="euclidian", ylab="euclidianuneq", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes EuclidianUneq vs. EuclidianUneqNew ----------------------------------------------------------------
+plot(x=eucUneqResults$expandedNodes, y=eucUneqResults_new$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidianUnequalAxis Heuristic v1/EuclidianUnequalAxisHeuristic v2", xlab="euclidianUneq", ylab="euclidianuneqNew", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time EuclidianUneq vs. EuclidianUneqNew ----------------------------------------------------------------
+plot(x=eucUneqResults$searchTime, y=eucUneqResults_new$searchTime, log="xy", main="Comparison search Time\nEuclidianUnequalAxis Heuristic v1/EuclidianUnequalAxisHeuristic v2", xlab="euclidianUneq", ylab="euclidianuneqNew", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes EuclidianUneq vs. EuclidianUneqFinal ----------------------------------------------------------------
+plot(x=eucUneqResults$expandedNodes, y=eucUneqResults_final$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidianUnequalAxis Heuristic v1/EuclidianUnequalAxisHeuristic Final", xlab="euclidianUneq", ylab="euclidianuneqFinal", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time EuclidianUneq1 vs. EuclidianUneq3 ----------------------------------------------------------------
+plot(x=eucUneqResults$searchTime, y=eucUneqResults_final$searchTime, log="xy", main="Comparison search Time\nEuclidianUnequalAxis Heuristic v1/EuclidianUnequalAxisHeuristic final", xlab="euclidianUneq", ylab="euclidianuneqFinal", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianUneqFinal ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\euc_eucUneq_eN.eps")
+plot(x=eucResults$expandedNodes, y=eucUneqUnawareResults$expandedNodes, log="xy", xlab="euclidean", ylab="euclideanUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time Euclidian vs. EuclidianUneqFinal ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\euc_eucUneq_sT.eps")
+plot(x=eucResults$searchTime, y=eucUneqUnawareResults$searchTime, log="xy", xlab="euclidean", ylab="euclideanUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes EuclidianUneqFinal vs. EuclidianScaledLM ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucSLM_eN.eps")
+plot(x=hFFResults$expandedNodes, y=eucScaledLMUnawareResults$expandedNodes, log="xy", xlab="hFF", ylab="euclidianscaledLM", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time EuclidianUneqFinal vs. EuclidianScaledLM ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucSLM_sT.eps")
+plot(x=hFFResults$searchTime, y=eucScaledLMUnawareResults$searchTime, log="xy", xlab="hFF", ylab="euclidianscaledLM", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianScaledLM ----------------------------------------------------------------
+plot(x=eucResults$expandedNodes, y=eucScaledLMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidian Heuristic/EuclidianScaledLM Heuristic", xlab="euclidian", ylab="euclidianscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time Euclidian vs. EuclidianScaledLM ----------------------------------------------------------------
+plot(x=eucResults$searchTime, y=eucScaledLMResults$searchTime, log="xy", main="Comparison search Time\nEuclidian Heuristic/EuclidianScaledLM Heuristic", xlab="euclidian ", ylab="euclidianscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianLMUneq ----------------------------------------------------------------
+plot(x=eucResults$expandedNodes, y=eucLMUneqResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidian Heuristic/EuclidianLMUneq Heuristic", xlab="euclidian", ylab="euclidianLMUneq", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time Euclidian vs. EuclidianLMUneq ----------------------------------------------------------------
+plot(x=eucResults$searchTime, y=eucLMUneqResults$searchTime, log="xy", main="Comparison search Time\nEuclidian Heuristic/EuclidianLMUneq Heuristic", xlab="euclidian ", ylab="euclidiansLMUneq", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianLMUneq ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\eucLM_eucLMUneq_eN.eps")
+plot(x=eucLMResults$expandedNodes, y=eucLMUneqUnawareResults$expandedNodes, log="xy", xlab="euclidianLM", ylab="euclidianLMUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time EuclidianLM vs. EuclidianLMUneq ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\eucLM_eucLMUneq_sT.eps")
+plot(x=eucLMResults$searchTime, y=eucLMUneqUnawareResults$searchTime, log="xy", xlab="euclidianLM", ylab="euclidianLMUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes EuclidianLMUneq_v1 vs. EuclidianLMUneq_v2 ----------------------------------------------------------------
+plot(x=eucLMUneqResults_old$expandedNodes, y=eucLMUneqResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nEuclidianLMUneq_old Heuristic/EuclidianLMUneq Heuristic", xlab="euclidianLMUneq_old", ylab="euclidiansLMUneq", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time EuclidianLMUneq_v1 vs. EuclidianLMUneq_v2 ----------------------------------------------------------------
+plot(x=eucLMUneqResults_old$searchTime, y=eucLMUneqResults$searchTime, log="xy", main="Comparison search Time\nEuclidianLMUneq_old Heuristic/EuclidianLMUneq Heuristic", xlab="euclidianLMUneq_old", ylab="euclidiansLMUneq", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Euclidian vs. EuclidianScaledPres ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucSP_eN.eps")
+plot(x=hFFResults$expandedNodes, y=eucScaledPresUnawareResults$expandedNodes, log="xy", xlab="hFF", ylab="euclidianscaledPres", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time Euclidian vs. EuclidianScaledPres ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucSP_sT.eps")
+plot(x=hFFResults$searchTime, y=eucScaledPresUnawareResults$searchTime, log="xy", xlab="hFF", ylab="euclidianscaledPres", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes hFF vs. EuclidianLMUneq ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucLMUneq_eN.eps")
+plot(x=hFFResults$expandedNodes, y=eucLMUneqUnawareResults$expandedNodes, log="xy", xlab="hFF", ylab="euclidianLMUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time hFF vs. EuclidianLMUneq ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\hFF_eucLMUneq_sT.eps")
+plot(x=hFFResults$searchTime, y=eucLMUneqUnawareResults$searchTime, log="xy", xlab="hFF", ylab="euclideanLMUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes Landmarks vs. EuclidianLM ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\LM_eucLM_eN.eps")
+plot(x=LMResults$expandedNodes, y=eucLMResults$expandedNodes, log="xy", xlab="landmarks", ylab="euclideanLM", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time Landmarks vs. EuclidianLM ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\LM_eucLM_sT.eps")
+plot(x=LMResults$searchTime, y=eucLMResults$searchTime, log="xy", xlab="landmarks", ylab="euclidianLM", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes Landmarks vs. EuclidianLMUneq ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\LM_eucLMUneq_eN.eps")
+plot(x=LMResults$expandedNodes, y=eucLMUneqUnawareResults$expandedNodes, log="xy", xlab="landmarks", ylab="euclideanLMUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Search Time Landmarks vs. EuclidianLMUneq ----------------------------------------------------------------
+setEPS()
+postscript("C:\\Users\\GeMo\\Documents\\UniUlm\\SoSe23\\BA\\Templates\\Abschlussarbeit_2021\\LaTeX\\images\\LM_eucLMUneq_sT.eps")
+plot(x=LMResults$searchTime, y=eucLMUneqUnawareResults$searchTime, log="xy", xlab="landmarks", ylab="euclideanLMUneq", col="blue")
+abline(0,1, col="red")
+dev.off()
+```
+
+```{r}
+# Expanded Nodes Landmarks vs. EuclidianLMU ----------------------------------------------------------------
+plot(x=hFFResults$expandedNodes, y=LMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nhFF Heuristic/landmarks Heuristic", xlab="hFF", ylab="landmarks", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time Landmarks vs. EuclidianLMU ----------------------------------------------------------------
+plot(x=hFFResults$searchTime, y=LMResults$searchTime, log="xy", main="Comparison search time\nhFF Heuristic/landmarks Heuristic", xlab="hFF", ylab="landmarks", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Landmarks vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=LMResults2$expandedNodes, y=eucLMScaledLMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="landmarks", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time Landmarks vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=LMResults2$searchTime, y=eucLMScaledLMResults$searchTime, log="xy", main="Comparison search Time\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="landmarks", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes euclidean landmark vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=eucLMResults$expandedNodes, y=eucLMScaledLMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\neucLM Heuristic/euclidian LM scaled by LM Heuristic", xlab="eucLM", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time euclidean landmark vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=eucLMResults$searchTime, y=eucLMScaledLMResults$searchTime, log="xy", main="Comparison expanded Nodes\neucLM Heuristic/euclidian LM scaled by LM Heuristic", xlab="eucLM", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes euclidean landmark uneq vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=eucLMUneqResults$expandedNodes, y=eucLMScaledLMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\neucLM uneq Heuristic/euclidian LM scaled by LM Heuristic", xlab="eucLMuneq", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time euclidean landmark uneq vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=eucLMUneqResults$searchTime, y=eucLMScaledLMResults$searchTime, log="xy", main="Comparison expanded Nodes\neucLM uneq Heuristic/euclidian LM scaled by LM Heuristic", xlab="eucLMuneq", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Expanded Nodes Landmarks vs. EuclidianLMScaledLM ----------------------------------------------------------------
+plot(x=LMResults2$expandedNodes, y=eucLMScaledLMResults$expandedNodes, log="xy", main="Comparison expanded Nodes\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="landmarks", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time euclidianunequalfinal vs. euclidianunequalunaware ----------------------------------------------------------------
+plot(x=eucUneqResults_final$searchTime, y=eucUneqUnawareResults$searchTime, log="xy", main="Comparison search Time\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="eucuneqfinal", ylab="eucunequnaware", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time euclidianunequalfinal vs. euclidianunequalunaware ----------------------------------------------------------------
+plot(x=eucLMUneqResults$searchTime, y=eucLMUneqUnawareResults$searchTime, log="xy", main="Comparison expanded Nodes\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="eucLMUneq", ylab="eucLMUNeqUnaware", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time euclidianunequalfinal vs. euclidianunequalunaware ----------------------------------------------------------------
+plot(x=LMResults$searchTime, y=eucLMUneqResults$searchTime, log="xy", main="Comparison expanded Nodes\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="landmark", ylab="eucLMUNeqUnaware", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+# Search Time euclidianunequalfinal vs. euclidianunequalunaware ----------------------------------------------------------------
+plot(x=LMResults$searchTime, y=eucLMUneqUnawareResults$searchTime, log="xy", main="Comparison expanded Nodes\nlandmarks Heuristic/euclidian LM scaled by LM Heuristic", xlab="landmark", ylab="eucLMUNeqUnaware", col="blue")
+abline(0,1, col="red")
+```
+
+```{r}
+install.packages('stringr')
+library(stringr)
+```
+
+```{r}
+domains = list(21)
+domains[1] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/airport/*"
+domains[2] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/blocks/*"
+domains[3] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/depot/*"
+domains[4] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/elevators/*"
+domains[5] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/freecell/*"
+domains[6] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/gripper/*"
+domains[7] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/logistics/*"
+domains[8] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/miconic/*"
+domains[9] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/movie/*"
+domains[10] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/openstacks/*"
+domains[11] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/parcprinter/*"
+domains[12] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/pegsol/*"
+domains[13] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/psr-small/*"
+domains[14] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/rovers/*"
+domains[15] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/satellite/*"
+domains[16] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/scanalyzer/*"
+domains[17] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/sokoban/*"
+domains[18] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/tpp/*"
+domains[19] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/transport/*"
+domains[20] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/woodworking/*"
+domains[21] = "/gdisk/ki/home/mgehring/pyperplan-main/benchmarks/zenotravel/*"
+```
+
+
+```{r}
+blindCoverage = integer(21)
+for(i in 1:21) {
+  blindCoverage[i] = sum(!is.na(blindResults$searchTime) & str_detect(blindResults$task, domains[[i]]))
+}
+print("blind")
+print(sum(blindCoverage))
+print(blindCoverage)
+
+
+eucCoverage = integer(21)
+for(i in 1:21) {
+  eucCoverage[i] = sum(!is.na(eucResults$searchTime) & str_detect(eucResults$task, domains[[i]]))
+}
+print("euc")
+print(sum(eucCoverage))
+print(eucCoverage)
+
+
+eucLMCoverage = integer(21)
+for(i in 1:21) {
+  eucLMCoverage[i] = sum(!is.na(eucLMResults$searchTime) & str_detect(eucLMResults$task, domains[[i]]))
+}
+print("eucLM")
+print(sum(eucLMCoverage))
+print(eucLMCoverage)
+
+
+eucUneqCoverage = integer(21)
+for(i in 1:21) {
+  eucUneqCoverage[i] = sum(!is.na(eucUneqUnawareResults$searchTime) & str_detect(eucUneqUnawareResults$task, domains[[i]]))
+}
+print("euq-uneq")
+print(sum(eucUneqCoverage))
+print(eucUneqCoverage)
+
+
+eucLMUneqCoverage = integer(21)
+for(i in 1:21) {
+  eucLMUneqCoverage[i] = sum(!is.na(eucLMUneqUnawareResults$searchTime) & str_detect(eucLMUneqUnawareResults$task, domains[[i]]))
+}
+print("euc-LM-uneq")
+print(sum(eucLMUneqCoverage))
+print(eucLMUneqCoverage)
+
+
+hFFCoverage = integer(21)
+for(i in 1:21) {
+  hFFCoverage[i] = sum(!is.na(hFFResults$searchTime) & str_detect(hFFResults$task, domains[[i]]))
+}
+print("hFF")
+print(sum(hFFCoverage))
+print(hFFCoverage)
+
+
+LMCoverage = integer(21)
+for(i in 1:21) {
+  LMCoverage[i] = sum(!is.na(LMResults$searchTime) & str_detect(LMResults$task, domains[[i]]))
+}
+print("LM")
+print(sum(LMCoverage))
+print(LMCoverage)
+
+
+eucScaledLMCoverage = integer(21)
+for(i in 1:21) {
+  eucScaledLMCoverage[i] = sum(!is.na(eucScaledLMResults$searchTime) & str_detect(eucScaledLMResults$task, domains[[i]]))
+}
+print("euc-sLM")
+print(sum(eucScaledLMCoverage))
+print(eucScaledLMCoverage)
+
+
+eucScaledPresCoverage = integer(21)
+for(i in 1:21) {
+  eucScaledPresCoverage[i] = sum(!is.na(eucScaledPresResults$searchTime) & str_detect(eucScaledPresResults$task, domains[[i]]))
+}
+print("euc-sP")
+print(sum(eucScaledPresCoverage))
+print(eucScaledPresCoverage)
+
+
+#eucLMScaledLMCoverage = integer(21)
+#for(i in 1:21) {
+#  eucLMScaledLMCoverage[i] = sum(!is.na(eucLMScaledLMResults$searchTime) & str_detect(eucLMScaledLMResults$task, domains[[i]]))
+#}
+#print(eucLMScaledLMCoverage)
+
+
+eucScaledLMUnawareCoverage = integer(21)
+for(i in 1:21) {
+  eucScaledLMUnawareCoverage[i] = sum(!is.na(eucScaledLMUnawareResults$searchTime) & str_detect(eucScaledLMUnawareResults$task, domains[[i]]))
+}
+print("euc-sLM-u")
+print(sum(eucScaledLMUnawareCoverage))
+print(eucScaledLMUnawareCoverage)
+
+
+eucScaledPresUnawareCoverage = integer(21)
+for(i in 1:21) {
+  eucScaledPresUnawareCoverage[i] = sum(!is.na(eucScaledPresUnawareResults$searchTime) & str_detect(eucScaledPresUnawareResults$task, domains[[i]]))
+}
+print("euc-sP-U")
+print(sum(eucScaledPresUnawareCoverage))
+print(eucScaledPresUnawareCoverage)
+
+```
+
+```{r}
+blindIPCScore = double(21)
+for(i in 1:605) {
+  x = blindResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(blindResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          blindIPCScore[j] = blindIPCScore[j] + 1
+        } else {
+          blindIPCScore[j] = blindIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("blind")
+print(sum(blindIPCScore))
+
+
+eucIPCScore = double(21)
+for(i in 1:605) {
+  x = eucResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucIPCScore[j] = eucIPCScore[j] + 1
+        } else {
+          eucIPCScore[j] = eucIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc")
+print(sum(eucIPCScore))
+
+
+eucLMIPCScore = double(21)
+for(i in 1:605) {
+  x = eucLMResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucLMResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucLMIPCScore[j] = eucLMIPCScore[j] + 1
+        } else {
+          eucLMIPCScore[j] = eucLMIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("eucLM")
+print(sum(eucLMIPCScore))
+
+
+eucUneqIPCScore = double(21)
+for(i in 1:605) {
+  x = eucUneqUnawareResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucUneqUnawareResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucUneqIPCScore[j] = eucUneqIPCScore[j] + 1
+        } else {
+          eucUneqIPCScore[j] = eucUneqIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc-uneq")
+print(sum(eucUneqIPCScore))
+
+
+eucLMUneqIPCScore = double(21)
+for(i in 1:605) {
+  x = eucLMUneqUnawareResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucLMUneqUnawareResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucLMUneqIPCScore[j] = eucLMUneqIPCScore[j] + 1
+        } else {
+          eucLMUneqIPCScore[j] = eucLMUneqIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc-LM-uneq")
+print(sum(eucLMUneqIPCScore))
+
+
+hFFIPCScore = double(21)
+for(i in 1:605) {
+  x = hFFResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(hFFResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          hFFIPCScore[j] = hFFIPCScore[j] + 1
+        } else {
+          hFFIPCScore[j] = hFFIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("hFF")
+print(sum(hFFIPCScore))
+
+
+LMIPCScore = double(21)
+for(i in 1:605) {
+  x = LMResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(LMResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          LMIPCScore[j] = LMIPCScore[j] + 1
+        } else {
+          LMIPCScore[j] = LMIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("LM")
+print(sum(LMIPCScore))
+
+
+eucScaledLMIPCScore = double(21)
+for(i in 1:605) {
+  x = eucScaledLMResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucScaledLMResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucScaledLMIPCScore[j] = eucScaledLMIPCScore[j] + 1
+        } else {
+          eucScaledLMIPCScore[j] = eucScaledLMIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc-sLM")
+print(sum(eucScaledLMIPCScore))
+
+
+eucScaledPresIPCScore = double(21)
+for(i in 1:605) {
+  x = eucScaledPresResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucScaledPresResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucScaledPresIPCScore[j] = eucScaledPresIPCScore[j] + 1
+        } else {
+          eucScaledPresIPCScore[j] = eucScaledPresIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc-sP")
+print(sum(eucScaledPresIPCScore))
+
+
+#eucLMScaledLMIPCScore = double(21)
+#for(i in 1:605) {
+#  x = eucLMScaledLMResults$searchTime[i] 
+#  for (j in 1:21) {
+#    if(str_detect(eucLMScaledLMResults$task[i], domains[[j]])) {
+#      if(!is.na(x)) {
+#        if(x <= 1) {
+#          eucLMScaledLMIPCScore[j] = eucLMScaledLMIPCScore[j] + 1
+#        } else {
+#          eucLMScaledLMIPCScore[j] = eucLMScaledLMIPCScore[j] + (log(x)/log(1800))
+#        } 
+#      }
+#    }
+#  }
+#}
+#print(eucLMScaledLMIPCScore)
+
+
+eucScaledLMUnawareIPCScore = double(21)
+for(i in 1:605) {
+  x = eucScaledLMUnawareResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucScaledLMUnawareResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucScaledLMUnawareIPCScore[j] = eucScaledLMUnawareIPCScore[j] + 1
+        } else {
+          eucScaledLMUnawareIPCScore[j] = eucScaledLMUnawareIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc-sLM-U")
+print(sum(eucScaledLMUnawareIPCScore))
+
+
+eucScaledPresUnawareIPCScore = double(21)
+for(i in 1:605) {
+  x = eucScaledPresUnawareResults$searchTime[i] 
+  for (j in 1:21) {
+    if(str_detect(eucScaledPresUnawareResults$task[i], domains[[j]])) {
+      if(!is.na(x)) {
+        if(x <= 1) {
+          eucScaledPresUnawareIPCScore[j] = eucScaledPresUnawareIPCScore[j] + 1
+        } else {
+          eucScaledPresUnawareIPCScore[j] = eucScaledPresUnawareIPCScore[j] + (log(x)/log(1800))
+        } 
+      }
+    }
+  }
+}
+print("euc-sP-U")
+print(sum(eucScaledPresUnawareIPCScore))
+```
+
+
+
+```{r}
+LMResults_airport_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/airport/[\\S]*")]
+eucLMResults_airport_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/airport/[\\S]*")]
+
+LMResults_blocks_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/blocks/[\\S]*")]
+eucLMResults_blocks_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/blocks/[\\S]*")]
+
+LMResults_depot_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/depot/[\\S]*")]
+eucLMResults_depot_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/depot/[\\S]*")]
+
+LMResults_elevators_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/elevators/[\\S]*")]
+eucLMResults_elevators_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/elevators/[\\S]*")]
+
+LMResults_freecell_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/freecell/[\\S]*")]
+eucLMResults_freecell_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/freecell/[\\S]*")]
+
+LMResults_gripper_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/gripper/[\\S]*")]
+eucLMResults_gripper_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/gripper/[\\S]*")]
+
+LMResults_logistics_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/logistics/[\\S]*")]
+eucLMResults_logistics_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/logistics/[\\S]*")]
+
+LMResults_miconic_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/miconic/[\\S]*")]
+eucLMResults_miconic_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/miconic/[\\S]*")]
+
+LMResults_movie_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/movie/[\\S]*")]
+eucLMResults_movie_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/movie/[\\S]*")]
+
+LMResults_openstacks_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/openstacks/[\\S]*")]
+eucLMResults_openstacks_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/openstacks/[\\S]*")]
+
+LMResults_parcprinter_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/parcprinter/[\\S]*")]
+eucLMResults_parcprinter_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/parcprinter/[\\S]*")]
+
+LMResults_pegsol_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/pegsol/[\\S]*")]
+eucLMResults_pegsol_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/pegsol/[\\S]*")]
+
+LMResults_psrsmall_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/psr-small/[\\S]*")]
+eucLMResults_psrsmall_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/psr-small/[\\S]*")]
+
+LMResults_rovers_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/rovers/[\\S]*")]
+eucLMResults_rovers_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/rovers/[\\S]*")]
+
+LMResults_satellite_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/satellite/[\\S]*")]
+eucLMResults_satellite_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/satellite/[\\S]*")]
+
+LMResults_scanalyzer_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/scanalyzer/[\\S]*")]
+eucLMResults_scanalyzer_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/scanalyzer/[\\S]*")]
+
+LMResults_sokoban_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/sokoban/[\\S]*")]
+eucLMResults_sokoban_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/sokoban/[\\S]*")]
+
+LMResults_tpp_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/tpp/[\\S]*")]
+eucLMResults_tpp_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/tpp/[\\S]*")]
+
+LMResults_transport_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/transport/[\\S]*")]
+eucLMResults_transport_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/transport/[\\S]*")]
+
+LMResults_woodworking_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/woodworking/[\\S]*")]
+eucLMResults_woodworking_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/woodworking/[\\S]*")]
+
+LMResults_zenotravel_eN = LMResults$expandedNodes[str_detect(LMResults$task, "[\\S]*/zenotravel/[\\S]*")]
+eucLMResults_zenotravel_eN = eucLMResults$expandedNodes[str_detect(eucLMResults$task, "[\\S]*/zenotravel/[\\S]*")]
+```
+
+```{r}
+plot(x=LMResults_zenotravel_eN, y=eucLMResults_zenotravel_eN, log="xy", main="Comparison expanded Nodes\nlandmarks Heuristic/euclidian LM Heuristic", xlab="landmarks", ylab="eucLMscaledLM", col="blue")
+abline(0,1, col="red")
+```
+
+
+
+
+

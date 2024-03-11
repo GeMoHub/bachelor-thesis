@@ -1,0 +1,14 @@
+*~
+*.py[cod]
+.tox/
+build/
+dist/
+pyperplan.egg-info/
+*.soln
+nohup.out
+Makefile
+make
+run.sh
+benchmarks/*/*_out.csv
+benchmarks/*/*_output.txt
+title.csv
